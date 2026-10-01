@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.gretty' version '4.1.0'
+}
+
+group = 'com.codegym'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    implementation 'org.springframework:spring-webmvc:6.2.6'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-parameters'
+}
+
+war {
+    archiveFileName = 'spring-user-model.war'
+}
+
+gretty {
+    servletContainer = 'tomcat10'
+    contextPath = '/'
+}
